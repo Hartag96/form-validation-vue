@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Title of the document</title>
+		<link rel="stylesheet" type="text/css" href="main.css">
+	</head>
+
+	<body>
+
+		<div class="container">
+
+			<header>
+			  <p>FROM</p>
+			</header>
+
+			<nav>
+			  <p>&lt;nav&gt;</p>
+			</nav>
+
+
+			<section>
+
+				<div class="section">
+					<p>&lt;section&gt;</p>
+				</div>
+
+				<div class="header">
+					<p>&lt;header&gt;</p>
+				</div>
+
+
+
+				<div class="ffform_main" id="form_main">
+
+					<div v-if="state === 1" class="first_form">
+						<div class="bordered">
+							<p>Wybierz trzy jezyki programowania, ktorych zamierzasz sie uczyc</p>
+						</div>
+							<ul>
+								<li v-for="lang in langs" class="list_lang">
+									<div class="valid_lang_container">
+										<div class="selected" v-bind:style="[ selectedLangs.indexOf(lang.label) >= 0 ? selectedLangs.indexOf(lang.label) >= 3 ? {'background-color': 'red'} : {'background-color': 'green'} : {'background-color': 'white'}]"></div>
+									</div>
+									<div class="lang_label_container">
+										<div class="lang_label"> {{ lang.label }} </div>
+									</div>
+									<div class="input_lang_container">
+										<input type="checkbox" @click="selectLang(lang)" v-bind:checked="lang.selected === true">
+									</div>
+								</li>
+							</ul>
+					</div>
+
+					<div v-if="state === 2" class="second_form">
+						<div class="bordered">
+							<p>Wypelnij dane osobowe(wszystkie pola sa obowiazkowe)</p>
+						</div>
+						<ul>
+							<li v-for="data in personal1" class="list_lang">
+								<div class="valid_personal_container">
+									<div class="selected" v-bind:style="[data.valid !== null ? data.valid === true ? {'background-color': 'green'} : {'background-color': 'red'} : {'background-color': 'white'}]"></div>
+								</div>
+								<div class="label_personal_container">
+									<div class="lang_label"> {{ data.label }} </div>
+								</div>
+								<div class="input_personal_container">
+									<input type="input" v-model="[data.label === 'Kod Pocztowy' ? postCodeValue : data.value]" v-on:input="postCode(data)">
+								</div>
+							</li>
+						</ul>
+					</div>
+
+					<div v-if="state === 3" class="third_form">
+						3
+					</div>
+					<div class="bordered nav">
+							<button @click="handlePrev" v-bind:disabled="state === 1"> wstecz </a>
+							<button @click="handleNext" v-bind:disabled="state === 3"> nastepna </a>
+				</div>
+
+
+
+				<div class="footer">
+					<p>&lt;footer&gt;</p>
+				</div>
+
+			</section>
+
+
+			<aside>
+				<p>&lt;aside&gt;</p>
+			</aside>
+
+
+			<footer>
+			  <p>&lt;footer&gt;</p>
+			</footer>
+
+		</div>
+		<script src="https://unpkg.com/vue"></script>
+		<script src="app.js"></script>
+	</body>
+</html>
