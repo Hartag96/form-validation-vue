@@ -9,36 +9,13 @@ body {
     margin: 0;
     padding: 0;
 }
-
-#shopping-list {
-    background: #FFF;
-    padding: 2rem;
-    margin: 1rem;
-    border-radius: 3px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.08);
-    width: 95%;
-    max-width: 900px;
-}
-
-h1 {
-    color: #3D4852;
+.container {
+  width: 1000px;
 }
 
 ul {
     list-style: none;
     padding: 0;
-}
-
-a {
-    color: #6CB2EB;
-    font-size: 1.25rem;
-    transition: all .1s ease-in;
-    margin-top: .5rem;
-    display: block;
-}
-
-a:hover {
-    color: #3490DC;
 }
 
 li, p {
@@ -54,42 +31,6 @@ li, p {
 
 li:hover {
     color: #22292F;
-}
-
-li input {
-    margin: 0 .5rem 0;
-}
-
-#shopping-list > input, #shopping-list > select {
-    width: 100%;
-    border-radius: 3px;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
-    border: 1px solid #F1F5F8;
-    color: #606F7B;
-    padding: .5rem .75rem;
-    box-sizing: border-box;
-    font-size: 1rem;
-    letter-spacing: .5px;
-    margin: .5rem 0
-}
-
-.add-item-form, .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.add-item-form input {
-    width: 70%;
-    border-radius: 3px;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.10);
-    border: 1px solid #F1F5F8;
-    color: #606F7B;
-    padding: .5rem .75rem;
-    box-sizing: border-box;
-    font-size: 1rem;
-    letter-spacing: .5px;
-    margin: .5rem 0;
 }
 
 .btn {
@@ -112,39 +53,11 @@ li input {
     background: #606F7B;
 }
 
-.btn-primary {
-    background: #6CB2EB;
-    color: #fff;
+.progress_bar {
+  width: 30%;
+  display: block;
+  margin: 0.5em auto;
 }
-
-.btn-primary:hover {
-    background: #3490DC;
-}
-
-.btn-cancel {
-    background: #EF5753;
-    color: #fff;
-}
-
-.btn-cancel:hover {
-    background: #E3342F;
-    color: #fff;
-}
-
-.strikeout {
-    text-decoration: line-through;
-    color: #B8C2CC;
-}
-
-.strikeout:hover {
-    color: #8795A1;
-}
-
-.priority {
-    color: #DE751F;
-}
-
-
 .bordered {
   width: 100%;
   display: block;
@@ -154,10 +67,12 @@ li input {
   border-bottom: 1px solid black;
 }
 
-.bordered p {
-  margin: 0px;
+.bordered h4 {
+  margin: 0;
+  padding: 0.5em;
   color: white;
   background-color: red;
+  text-align: center;
 }
 
 .bordered button {
@@ -177,15 +92,19 @@ li input {
 .valid_lang_container, .input_lang_container {
   width: 40%;
 }
-.valid_personal_container{
-  width: 20%;
-}
-.label_personal_container, .input_personal_container {
-  width: 40%;
-}
 .lang_label_container {
   width: 20%;
 }
+.valid_personal_container{
+  width: 30%;
+}
+.label_personal_container {
+  width: 20%
+}
+.input_personal_container {
+  width: 40%;
+}
+
 
 .selected {
   float: right;
@@ -202,4 +121,14 @@ li input {
   display: flex;
   align-items: center;
   justify-content: center
+}
+
+.valid {
+  background-color: green;
+}
+.invalid {
+  background-color: red;
+}
+.unfiled {
+  background-color: white;
 }

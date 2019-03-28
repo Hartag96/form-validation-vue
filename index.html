@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Title of the document</title>
+		<title>Form Validation</title>
 		<link rel="stylesheet" type="text/css" href="main.css">
 	</head>
 
@@ -10,43 +10,22 @@
 
 		<div class="container">
 
-			<header>
-			  <p>FROM</p>
-			</header>
-
-			<nav>
-			  <p>&lt;nav&gt;</p>
-			</nav>
-
-
-			<section>
-
-				<div class="section">
-					<p>&lt;section&gt;</p>
-				</div>
-
-				<div class="header">
-					<p>&lt;header&gt;</p>
-				</div>
-
-
-
-				<div class="ffform_main" id="form_main">
-
+				<div class="form_main" id="form_main">
+					<progress class="progress_bar" max="10" :value="progressValue"></progress>
 					<div v-if="state === 1" class="first_form">
 						<div class="bordered">
-							<p>Wybierz trzy jezyki programowania, ktorych zamierzasz sie uczyc</p>
+							<h4>Wybierz trzy jezyki programowania, ktorych zamierzasz sie uczyc</h4>
 						</div>
 							<ul>
 								<li v-for="lang in langs" class="list_lang">
 									<div class="valid_lang_container">
-										<div class="selected" v-bind:style="[ selectedLangs.indexOf(lang.label) >= 0 ? selectedLangs.indexOf(lang.label) >= 3 ? {'background-color': 'red'} : {'background-color': 'green'} : {'background-color': 'white'}]"></div>
+										<div class="selected" :class="[langPosition(lang) >= 0 ? (langPosition(lang) < 3 ? 'valid' : 'invalid') : 'unfiled']"></div>
 									</div>
 									<div class="lang_label_container">
-										<div class="lang_label"> {{ lang.label }} </div>
+										<div class="lang_label"> {{ lang }} </div>
 									</div>
 									<div class="input_lang_container">
-										<input type="checkbox" @click="selectLang(lang)" v-bind:checked="lang.selected === true">
+										<input type="checkbox" @click="selectLang(lang)" v-bind:checked="langPosition(lang) >= 0">
 									</div>
 								</li>
 							</ul>
@@ -54,51 +33,150 @@
 
 					<div v-if="state === 2" class="second_form">
 						<div class="bordered">
-							<p>Wypelnij dane osobowe(wszystkie pola sa obowiazkowe)</p>
+							<h4>Wypelnij dane osobowe(wszystkie pola sa obowiazkowe)</h4>
 						</div>
 						<ul>
-							<li v-for="data in personal1" class="list_lang">
+							<li class="list_lang">
 								<div class="valid_personal_container">
-									<div class="selected" v-bind:style="[data.valid !== null ? data.valid === true ? {'background-color': 'green'} : {'background-color': 'red'} : {'background-color': 'white'}]"></div>
+									<div class="selected" :class="[name ? (validText(name) ? 'valid' : 'invalid') : 'unfiled']"></div>
 								</div>
 								<div class="label_personal_container">
-									<div class="lang_label"> {{ data.label }} </div>
+									<div class="lang_label"> Imię </div>
 								</div>
 								<div class="input_personal_container">
-									<input type="input" v-model="[data.label === 'Kod Pocztowy' ? postCodeValue : data.value]" v-on:input="postCode(data)">
+									<input type="input" v-model="name">
 								</div>
 							</li>
+
+							<li class="list_lang">
+								<div class="valid_personal_container">
+									<div class="selected" :class="[city ? (validText(surname) ? 'valid' : 'invalid') : 'unfiled']"></div>
+								</div>
+								<div class="label_personal_container">
+									<div class="lang_label"> Nazwisko </div>
+								</div>
+								<div class="input_personal_container">
+									<input type="input" v-model="surname">
+								</div>
+							</li>
+
+							<li class="list_lang">
+								<div class="valid_personal_container">
+									<div class="selected" :class="[city ? (validText(city) ? 'valid' : 'invalid') : 'unfiled']"></div>
+								</div>
+								<div class="label_personal_container">
+									<div class="lang_label"> Miasto </div>
+								</div>
+								<div class="input_personal_container">
+									<input type="input" v-model="city">
+								</div>
+							</li>
+
+							<li class="list_lang">
+								<div class="valid_personal_container">
+									<div class="selected" :class="[code ? (validPostCode() ? 'valid' : 'invalid') : 'unfiled']"></div>
+								</div>
+								<div class="label_personal_container">
+									<div class="lang_label"> Kod Pocztowy </div>
+								</div>
+								<div class="input_personal_container">
+									<input type="input" v-model="code" v-on:keyup="postCodeValue(code)">
+								</div>
+							</li>
+
+							<li class="list_lang">
+								<div class="valid_personal_container">
+									<div class="selected" :class="[province ? 'valid' : 'unfiled']"></div>
+								</div>
+								<div class="label_personal_container">
+									<div class="lang_label"> Wojewodztwo </div>
+								</div>
+								<div class="input_personal_container">
+									<select v-model="province">
+										<option>Dolnośląskie</option>
+										<option>Kujawsko-Pomorskie</option>
+										<option>Lubelskie</option>
+										<option>Lubuskie</option>
+										<option>Łódzkie</option>
+										<option>Małopolskie</option>
+										<option>Mazowieckie</option>
+										<option>Opolskie</option>
+										<option>Podkarpackie</option>
+										<option>Podlaskie</option>
+										<option>Pomorskie</option>
+										<option>Śląskie</option>
+										<option>Świętorzyskie</option>
+										<option>Warmińsko-Mazurskie</option>
+										<option>Wielkopolskie</option>
+										<option>Zachodniopomorskie</option>
+									</select>
+								</div>
 						</ul>
 					</div>
 
 					<div v-if="state === 3" class="third_form">
-						3
+						<div class="bordered">
+							<h4>Wypelnij dane osobowe(wszystkie pola sa obowiazkowe)</h4>
+						</div>
+						<ul>
+							<li class="list_lang">
+								<div class="valid_personal_container">
+									<div class="selected" :class="[email ? (validEmail() ? 'valid' : 'invalid') : 'unfiled']"></div>
+								</div>
+								<div class="label_personal_container">
+									<div class="lang_label"> E-mail </div>
+								</div>
+								<div class="input_personal_container">
+									<input type="input" v-model="email">
+								</div>
+							</li>
+							<li class="list_lang">
+								<div class="valid_personal_container">
+									<div class="selected" :class="[ipAddr ? (validIpAddr() ? 'valid' : 'invalid') : 'unfiled']"></div>
+								</div>
+								<div class="label_personal_container">
+									<div class="lang_label"> IP </div>
+								</div>
+								<div class="input_personal_container">
+									<input type="input" v-model="ipAddr">
+								</div>
+							</li>
+							<li class="list_lang">
+								<div class="valid_personal_container">
+									<div class="selected" :class="[url ? (validUrl() ? 'valid' : 'invalid') : 'unfiled']"></div>
+								</div>
+								<div class="label_personal_container">
+									<div class="lang_label"> URL </div>
+								</div>
+								<div class="input_personal_container">
+									<input type="input" v-model="url">
+								</div>
+							</li>
+
+							<li class="list_lang">
+								<div class="valid_personal_container">
+									<div class="selected" :class="[password ? (validPassword() ? 'valid' : 'invalid') : 'unfiled']"></div>
+								</div>
+								<div class="label_personal_container">
+									<div class="lang_label"> Hasło </div>
+								</div>
+								<div class="input_personal_container">
+									<input type="password" v-model="password">
+									<meter :value="scorePassword" min="0" max="100" low="30" high="60" optimum="90">
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div v-if="state === 3" class="bordered nav">
+							<button @click="submit"> OK </button>
 					</div>
 					<div class="bordered nav">
-							<button @click="handlePrev" v-bind:disabled="state === 1"> wstecz </a>
-							<button @click="handleNext" v-bind:disabled="state === 3"> nastepna </a>
+							<button @click="handlePrev" v-bind:disabled="state === 1"> wstecz </button>
+							<button @click="handleNext" v-bind:disabled="state === 3"> nastepna </button>
+					</div>
 				</div>
-
-
-
-				<div class="footer">
-					<p>&lt;footer&gt;</p>
-				</div>
-
-			</section>
-
-
-			<aside>
-				<p>&lt;aside&gt;</p>
-			</aside>
-
-
-			<footer>
-			  <p>&lt;footer&gt;</p>
-			</footer>
-
 		</div>
-		<script src="https://unpkg.com/vue"></script>
+		<script src="vue.js"></script>
 		<script src="app.js"></script>
 	</body>
 </html>
